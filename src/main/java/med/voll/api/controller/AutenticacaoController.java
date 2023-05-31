@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.auth0.jwt.JWT;
-
 import jakarta.validation.Valid;
-import med.voll.api.domain.usuario.AutenticacaoService;
 import med.voll.api.domain.usuario.DadosAutenticacao;
 import med.voll.api.domain.usuario.Usuario;
 import med.voll.api.infra.security.DadosTokenJWT;
@@ -33,6 +30,7 @@ public class AutenticacaoController {
 		var token = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
 		var authentication = manager.authenticate(token);
 		var tokenJWT = tokenService.gerarToken((Usuario) authentication.getPrincipal());
+		System.out.println(tokenJWT);
 		return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
 	}
 	
